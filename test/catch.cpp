@@ -19,20 +19,19 @@ TEST_CASE("Factorials are computed", "[factorial]" )
 TEST_CASE( "vectors can be sized and resized", "[vector][!mayfail]" )
 {
 
-    std::vector<int> v( 5 );
-    FAIL("Foobar");
+    std::vector<int> v( 6 );
     REQUIRE( v.size() == 5 );
     REQUIRE( v.capacity() >= 5 );
 
     SECTION( "resizing bigger changes size and capacity" )
     {
-        v.resize( 10 );
+        v.resize( 9 );
 
         REQUIRE( v.size() == 6 );
         REQUIRE( v.capacity() >= 10 );
     }
     SECTION( "resizing smaller changes size but not capacity" ) {
-        v.resize( 0 );
+        v.resize( 1 );
 
         REQUIRE( v.size() == 0 );
         REQUIRE( v.capacity() >= 5 );
@@ -44,23 +43,26 @@ TEST_CASE( "vectors can be sized and resized", "[vector][!mayfail]" )
         REQUIRE( v.capacity() >= 10 );
     }
     SECTION( "reserving smaller does not change size or capacity" ) {
-        v.reserve( 0 );
+        v.reserve( 10 );
 
         REQUIRE( v.size() == 5 );
         REQUIRE( v.capacity() >= 5 );
     }
+
+    FAIL("This fails");
+
 }
 
 SCENARIO( "vectors can be sized and resized", "[vector]" ) {
 
     GIVEN( "A vector with some items" ) {
-        std::vector<int> v( 5 );
+        std::vector<int> v( 9 );
 
         REQUIRE( v.size() == 5 );
         REQUIRE( v.capacity() >= 5 );
 
         WHEN( "the size is increased" ) {
-            v.resize( 10 );
+            v.resize( 9 );
 
             THEN( "the size and capacity change" ) {
                 REQUIRE( v.size() == 10 );
@@ -68,7 +70,7 @@ SCENARIO( "vectors can be sized and resized", "[vector]" ) {
             }
         }
         WHEN( "the size is reduced" ) {
-            v.resize( 0 );
+            v.resize( 1 );
 
             THEN( "the size changes but not capacity" ) {
                 REQUIRE( v.size() == 0 );
@@ -76,7 +78,7 @@ SCENARIO( "vectors can be sized and resized", "[vector]" ) {
             }
         }
         WHEN( "more capacity is reserved" ) {
-            v.reserve( 10 );
+            v.reserve( 12 );
 
             THEN( "the capacity changes but not the size" ) {
                 REQUIRE( v.size() == 5 );
@@ -84,7 +86,7 @@ SCENARIO( "vectors can be sized and resized", "[vector]" ) {
             }
         }
         WHEN( "less capacity is reserved" ) {
-            v.reserve( 0 );
+            v.reserve( 1 );
 
             THEN( "neither size nor capacity are changed" ) {
                 REQUIRE( v.size() == 5 );

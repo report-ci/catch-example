@@ -5,6 +5,6 @@
 
 TEST_CASE("STATIC_REQUIRE showcase", "[traits]")
 {
-    STATIC_REQUIRE( std::is_void<void>::value );
-    STATIC_REQUIRE_FALSE( std::is_void<int>::value );
+    STATIC_REQUIRE( std::is_void<int>::value );
+    STATIC_REQUIRE_FALSE( std::is_void<void>::value );
 }
